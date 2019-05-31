@@ -19,5 +19,3 @@ project(fswatch)
 set(CMAKE_CXX_STANDARD 11)
 
 add_subdirectory(libfswatch)
-add_subdirectory(fswatch/src)
-add_subdirectory(test/src)
