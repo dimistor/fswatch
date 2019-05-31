@@ -51,7 +51,8 @@ set(libfswatch_SOURCE_FILES
         src/libfswatch/c++/string/string_utils.hpp
         src/libfswatch/gettext.h
         src/libfswatch/gettext_defs.h
-        libfswatch_config.h)
+        libfswatch_config.h
+        ${libfswatch_MONITOR_SOURCE_FILES})
 
 add_library(fswatch ${libfswatch_SOURCE_FILES})
 target_include_directories(fswatch PUBLIC src)

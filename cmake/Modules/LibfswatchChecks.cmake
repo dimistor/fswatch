@@ -20,24 +20,24 @@ check_struct_has_member("struct stat" st_mtimespec sys/stat.h
 
 check_include_files(sys/inotify.h HAVE_SYS_INOTIFY_H)
 if (HAVE_SYS_INOTIFY_H)
-    set(libfswatch_SOURCE_FILES
-            ${libfswatch_SOURCE_FILES}
+    set(libfswatch_MONITOR_SOURCE_FILES
+            ${libfswatch_MONITOR_SOURCE_FILES}
             src/libfswatch/c++/inotify_monitor.cpp
             src/libfswatch/c++/inotify_monitor.hpp)
 endif (HAVE_SYS_INOTIFY_H)
 
 check_include_files(sys/event.h HAVE_SYS_EVENT_H)
 if (HAVE_SYS_EVENT_H)
-    set(libfswatch_SOURCE_FILES
-            ${libfswatch_SOURCE_FILES}
+    set(libfswatch_MONITOR_SOURCE_FILES
+            ${libfswatch_MONITOR_SOURCE_FILES}
             src/libfswatch/c++/kqueue_monitor.cpp
             src/libfswatch/c++/kqueue_monitor.hpp)
 endif (HAVE_SYS_EVENT_H)
 
 check_include_files(port.h HAVE_PORT_H)
 if (HAVE_PORT_H)
-    set(libfswatch_SOURCE_FILES
-            ${libfswatch_SOURCE_FILES}
+    set(libfswatch_MONITOR_SOURCE_FILES
+            ${libfswatch_MONITOR_SOURCE_FILES}
             src/libfswatch/c++/fen_monitor.cpp
             src/libfswatch/c++/fen_monitor.hpp)
 endif (HAVE_PORT_H)
@@ -46,8 +46,8 @@ if (WIN32)
     check_include_files(sys/cygwin.h HAVE_CYGWIN)
 
     if (HAVE_CYGWIN)
-        set(libfswatch_SOURCE_FILES
-                ${libfswatch_SOURCE_FILES}
+        set(libfswatch_MONITOR_SOURCE_FILES
+                ${libfswatch_MONITOR_SOURCE_FILES}
                 src/libfswatch/c++/windows/win_directory_change_event.cpp
                 src/libfswatch/c++/windows/win_directory_change_event.hpp
                 src/libfswatch/c++/windows/win_error_message.cpp
@@ -71,8 +71,8 @@ if (APPLE)
         find_library(CORESERVICES_LIBRARY CoreServices)
         set(EXTRA_LIBS ${CORESERVICES_LIBRARY})
 
-        set(libfswatch_SOURCE_FILES
-                ${libfswatch_SOURCE_FILES}
+        set(libfswatch_MONITOR_SOURCE_FILES
+                ${libfswatch_MONITOR_SOURCE_FILES}
                 src/libfswatch/c++/fsevents_monitor.cpp
                 src/libfswatch/c++/fsevents_monitor.hpp)
 
