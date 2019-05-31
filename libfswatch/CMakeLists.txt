@@ -13,10 +13,14 @@
 # You should have received a copy of the GNU General Public License along with
 # this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-include_directories(.. src/libfswatch)
-add_definitions(-DHAVE_CONFIG_H)
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/../cmake/Modules")
+include(LibfswatchChecks)
+include_directories(src/libfswatch ${CMAKE_CURRENT_BINARY_DIR})
 
-set(LIB_SOURCE_FILES
+add_compile_definitions(HAVE_CONFIG_H)
+configure_file(libfswatch_config.h.in libfswatch_config.h)
+
+set(libfswatch_SOURCE_FILES
         src/libfswatch/c/cevent.cpp
         src/libfswatch/c/cevent.h
         src/libfswatch/c/cfilter.h
@@ -47,74 +51,8 @@ set(LIB_SOURCE_FILES
         src/libfswatch/c++/string/string_utils.hpp
         src/libfswatch/gettext.h
         src/libfswatch/gettext_defs.h
-        ../libfswatch_config.h)
+        libfswatch_config.h)
 
-INCLUDE(CheckIncludeFiles)
-
-CHECK_INCLUDE_FILES(sys/inotify.h HAVE_SYS_INOTIFY)
-
-if (HAVE_SYS_INOTIFY_H)
-    set(LIB_SOURCE_FILES
-            ${LIB_SOURCE_FILES}
-            src/libfswatch/c++/inotify_monitor.cpp
-            src/libfswatch/c++/inotify_monitor.hpp)
-endif (HAVE_SYS_INOTIFY_H)
-
-CHECK_INCLUDE_FILES(sys/event.h HAVE_SYS_EVENT_H)
-
-if (HAVE_SYS_EVENT_H)
-    set(LIB_SOURCE_FILES
-            ${LIB_SOURCE_FILES}
-            src/libfswatch/c++/kqueue_monitor.cpp
-            src/libfswatch/c++/kqueue_monitor.hpp)
-endif (HAVE_SYS_EVENT_H)
-
-CHECK_INCLUDE_FILES(port.h HAVE_PORT_H)
-
-if (HAVE_PORT_H)
-    set(LIB_SOURCE_FILES
-            ${LIB_SOURCE_FILES}
-            src/libfswatch/c++/fen_monitor.cpp
-            src/libfswatch/c++/fen_monitor.hpp)
-endif (HAVE_PORT_H)
-
-if (WIN32)
-    CHECK_INCLUDE_FILES(sys/cygwin.h HAVE_CYGWIN)
-
-    if (HAVE_CYGWIN)
-        set(LIB_SOURCE_FILES
-                ${LIB_SOURCE_FILES}
-                src/libfswatch/c++/windows/win_directory_change_event.cpp
-                src/libfswatch/c++/windows/win_directory_change_event.hpp
-                src/libfswatch/c++/windows/win_error_message.cpp
-                src/libfswatch/c++/windows/win_error_message.hpp
-                src/libfswatch/c++/windows/win_handle.cpp
-                src/libfswatch/c++/windows/win_handle.hpp
-                src/libfswatch/c++/windows/win_paths.cpp
-                src/libfswatch/c++/windows/win_paths.hpp
-                src/libfswatch/c++/windows/win_strings.cpp
-                src/libfswatch/c++/windows/win_strings.hpp
-                src/libfswatch/c++/windows_monitor.cpp
-                src/libfswatch/c++/windows_monitor.hpp)
-        add_definitions(-DHAVE_WINDOWS)
-    endif (HAVE_CYGWIN)
-endif (WIN32)
-
-if (APPLE)
-    CHECK_INCLUDE_FILES(CoreServices/CoreServices.h HAVE_FSEVENTS_FILE_EVENTS)
-
-    if (HAVE_FSEVENTS_FILE_EVENTS)
-        find_library(CORESERVICES_LIBRARY CoreServices)
-        set(EXTRA_LIBS ${CORESERVICES_LIBRARY})
-
-        set(LIB_SOURCE_FILES
-                ${LIB_SOURCE_FILES}
-                src/libfswatch/c++/fsevents_monitor.cpp
-                src/libfswatch/c++/fsevents_monitor.hpp)
-
-    endif (HAVE_FSEVENTS_FILE_EVENTS)
-endif (APPLE)
-
-add_library(libfswatch ${LIB_SOURCE_FILES})
-target_include_directories(libfswatch PUBLIC src)
-target_link_libraries(libfswatch ${CORESERVICES_LIBRARY})
+add_library(fswatch ${libfswatch_SOURCE_FILES})
+target_include_directories(fswatch PUBLIC src)
+target_link_libraries(fswatch ${CORESERVICES_LIBRARY})

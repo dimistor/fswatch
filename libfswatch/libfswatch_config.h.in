@@ -1,0 +1,39 @@
+/* Define to 1 if translation of program messages to the user's native
+   language is requested. */
+#cmakedefine ENABLE_NLS
+
+/* Define if <atomic> is available. */
+#cmakedefine HAVE_CXX_ATOMIC
+
+/* Define if <mutex> is available. */
+#cmakedefine HAVE_CXX_MUTEX
+
+/* Define if the thread_local storage specified is available. */
+#cmakedefine HAVE_CXX_THREAD_LOCAL
+
+/* Windows API present. */
+#cmakedefine HAVE_WINDOWS
+
+/* Define if the file events are supported by OS X FSEvents API. */
+#cmakedefine HAVE_FSEVENTS_FILE_EVENTS
+
+/* Define if you have the <port.h> header file. */
+#cmakedefine HAVE_PORT_H
+
+/* Define if `st_mtime' is a member of `struct stat'. */
+#cmakedefine HAVE_STRUCT_STAT_ST_MTIME
+
+/* Define if `st_mtimespec' is a member of `struct stat'. */
+#cmakedefine HAVE_STRUCT_STAT_ST_MTIMESPEC
+
+/* Define if you have the <sys/event.h> header file. */
+#cmakedefine HAVE_SYS_EVENT_H
+
+/* Define if you have the <sys/inotify.h> header file. */
+#cmakedefine HAVE_SYS_INOTIFY_H
+
+/* Define if you have the <unordered_map> header file. */
+#cmakedefine HAVE_UNORDERED_MAP
+
+/* Define if you have the <unordered_set> header file. */
+#cmakedefine HAVE_UNORDERED_SET
