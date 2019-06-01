@@ -20,6 +20,9 @@ include_directories(src/libfswatch ${CMAKE_CURRENT_BINARY_DIR})
 add_compile_definitions(HAVE_CONFIG_H)
 configure_file(libfswatch_config.h.in libfswatch_config.h)
 
+set(THREADS_PREFER_PTHREAD_FLAG ON)
+find_package(Threads)
+
 set(libfswatch_SOURCE_FILES
         src/libfswatch/c/cevent.cpp
         src/libfswatch/c/cevent.h
@@ -56,4 +59,5 @@ set(libfswatch_SOURCE_FILES
 
 add_library(fswatch ${libfswatch_SOURCE_FILES})
 target_include_directories(fswatch PUBLIC src)
-target_link_libraries(fswatch ${CORESERVICES_LIBRARY})
+
+target_link_libraries(fswatch ${CORESERVICES_LIBRARY} Threads::Threads)
