@@ -14,7 +14,7 @@
 # this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 cmake_minimum_required(VERSION 3.8)
-project(fswatch)
+project(libfswatch)
 
 set(CMAKE_CXX_STANDARD 11)
 
